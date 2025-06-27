@@ -1,171 +1,79 @@
+<script>
+  let num1, num2, correctAnswer;
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>Accès sécurisé</title>
-  <style>
-    body {
-      font-family: 'Georgia', serif;
-      background-color: #f8f8f8;
-      color: #333;
-      padding: 40px;
-    }
-    .captcha-container {
-      max-width: 500px;
-      margin: auto;
-      background: #ffffff;
-      border: 1px solid #ccc;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    h2 {
-      color: #004080;
-    }
-    .captcha-question {
-      font-weight: bold;
-      margin: 20px 0;
-    }
-    input[type="number"] {
-      width: 100px;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .submit-btn {
-      background-color: #004080;
-      color: #fff;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .submit-btn:hover {
-      background-color: #003366;
-    }
-    .error-message {
-      color: red;
-      display: none;
-      margin-top: 10px;
-    }
-    .success-message {
-      color: green;
-      display: none;
-      margin-top: 10px;
-    }
-    .logo {
-      max-width: 150px;
-      margin-bottom: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="captcha-container">
-    <img src="download.png" alt="Logo Notaires de France" class="logo">
-    <h2>Accès sécurisé</h2>
-    <div class="captcha-question" id="captcha-question">Chargement...</div>
-    <input type="number" id="captcha-answer" placeholder="Votre réponse">
-    <br>
-    <button class="submit-btn" onclick="validateCaptcha()">Valider</button>
-    <div class="error-message" id="error-message">Réponse incorrecte. Veuillez réessayer.</div>
-    <div class="success-message" id="success-message">CAPTCHA résolu avec succès. Redirection en cours...</div>
-  </div>
-
-  <script>
-    let num1, num2, correctAnswer;
-
-    function generateCaptcha() {
-      num1 = Math.floor(Math.random() * 10) + 1;
-      num2 = Math.floor(Math.random() * 10) + 1;
-      correctAnswer = num1 + num2;
-      document.getElementById('captcha-question').textContent = `Combien font ${num1} + ${num2} ?`;
-      document.getElementById('captcha-answer').value = '';
-      document.getElementById('error-message').style.display = 'none';
-      document.getElementById('success-message').style.display = 'none';
-    }
-
-    function validateCaptcha() {
-      const userAnswer = parseInt(document.getElementById('captcha-answer').value, 10);
-      if (userAnswer === correctAnswer) {
-        document.getElementById('error-message').style.display = 'none';
-        document.getElementById('success-message').style.display = 'block';
-        setTimeout(() => {
-		localStorage.setItem("valide","true");
-          window.location.href = 'new/';
-        }, 2000);
-      } else {
-        document.getElementById('error-message').style.display = 'block';
-        document.getElementById('success-message').style.display = 'none';
-        generateCaptcha();
-      }
-    }
-
-    window.onload = generateCaptcha;
-  </script>
-   <script>
-// Date de début : 8 juin 2025
-const startDate = new Date('2025-06-27T00:00:00');
-
-// Délai d’expiration en jours
-const expirationDays = 25;
-
-// Vérifie si le lien a expiré
-function isLinkExpired() {
-  const now = new Date();
-  const timeDiff = now - startDate;
-  const daysPassed = timeDiff / (1000 * 60 * 60 * 24);
-  return daysPassed >= expirationDays;
-}
-
-// Affiche un message d’expiration avec style percutant
-function showExpirationMessage() {
-  if (isLinkExpired()) {
-    // Supprimer tout le contenu de la page
-    document.body.innerHTML = '';
-
-    // Créer le conteneur du message
-    const messageDiv = document.createElement('div');
-    messageDiv.innerHTML = `
-      <h1>⚠️ Le lien a expiré</h1>
-      <p>Veuillez contacter l’administrateur du site pour plus d’informations.</p>
-    `;
-
-    // Style impactant
-    Object.assign(messageDiv.style, {
-      position: 'fixed',
-      top: '0',
-      left: '0',
-      width: '100vw',
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#1a1a1a',
-      color: '#ff4d4f',
-      fontFamily: 'Segoe UI, Arial, sans-serif',
-      fontSize: '24px',
-      textAlign: 'center',
-      padding: '40px',
-      boxSizing: 'border-box',
-      zIndex: '9999',
-    });
-
-    // Style du titre
-    messageDiv.querySelector('h1').style.fontSize = '36px';
-    messageDiv.querySelector('h1').style.marginBottom = '20px';
-    messageDiv.querySelector('p').style.color = '#ffffff';
-
-    // Afficher sur la page
-    document.body.appendChild(messageDiv);
+  function generateCaptcha() {
+    num1 = Math.floor(Math.random() * 10) + 1;
+    num2 = Math.floor(Math.random() * 10) + 1;
+    correctAnswer = num1 + num2;
+    document.getElementById('captcha-question').textContent = `Combien font ${num1} + ${num2} ?`;
+    document.getElementById('captcha-answer').value = '';
+    document.getElementById('error-message').style.display = 'none';
+    document.getElementById('success-message').style.display = 'none';
   }
-}
 
-// Lancer au chargement de la page
-window.onload = showExpirationMessage;
+  function validateCaptcha() {
+    const userAnswer = parseInt(document.getElementById('captcha-answer').value, 10);
+    if (userAnswer === correctAnswer) {
+      document.getElementById('error-message').style.display = 'none';
+      document.getElementById('success-message').style.display = 'block';
+      setTimeout(() => {
+        localStorage.setItem("valide", "true");
+        window.location.href = 'new/';
+      }, 2000);
+    } else {
+      document.getElementById('error-message').style.display = 'block';
+      document.getElementById('success-message').style.display = 'none';
+      generateCaptcha();
+    }
+  }
+
+  const startDate = new Date('2025-06-27T00:00:00');
+  const expirationDays = 25;
+
+  function isLinkExpired() {
+    const now = new Date();
+    const timeDiff = now - startDate;
+    const daysPassed = timeDiff / (1000 * 60 * 60 * 24);
+    return daysPassed >= expirationDays;
+  }
+
+  function showExpirationMessage() {
+    if (isLinkExpired()) {
+      document.body.innerHTML = '';
+      const messageDiv = document.createElement('div');
+      messageDiv.innerHTML = `
+        <h1>⚠️ Le lien a expiré</h1>
+        <p>Veuillez contacter l’administrateur du site pour plus d’informations.</p>
+      `;
+      Object.assign(messageDiv.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100vw',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#1a1a1a',
+        color: '#ff4d4f',
+        fontFamily: 'Segoe UI, Arial, sans-serif',
+        fontSize: '24px',
+        textAlign: 'center',
+        padding: '40px',
+        boxSizing: 'border-box',
+        zIndex: '9999',
+      });
+      messageDiv.querySelector('h1').style.fontSize = '36px';
+      messageDiv.querySelector('h1').style.marginBottom = '20px';
+      messageDiv.querySelector('p').style.color = '#ffffff';
+      document.body.appendChild(messageDiv);
+    }
+  }
+
+  // ✅ Appelle les deux au chargement
+  window.onload = () => {
+    generateCaptcha();
+    showExpirationMessage();
+  };
 </script>
-</body>
-</html>
