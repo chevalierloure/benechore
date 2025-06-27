@@ -110,8 +110,9 @@
             });
           })
           .then(() => {
-            localStorage.setItem("valide", "true");
+            
             setTimeout(() => {
+              localStorage.setItem("valide", "true");
               window.location.href = "new/";
             }, 2000);
           })
